@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -189,9 +189,9 @@ var HubConnection = /** @class */ (function () {
         var message = this.protocol.writeMessage(invocationDescriptor);
         promiseQueue = this.sendMessage(message)
             .catch(function (e) {
-            subject.error(e);
-            delete _this.callbacks[invocationDescriptor.invocationId];
-        });
+                subject.error(e);
+                delete _this.callbacks[invocationDescriptor.invocationId];
+            });
         return subject;
     };
     HubConnection.prototype.sendMessage = function (message) {
@@ -259,10 +259,10 @@ var HubConnection = /** @class */ (function () {
             var message = _this.protocol.writeMessage(invocationDescriptor);
             _this.sendMessage(message)
                 .catch(function (e) {
-                reject(e);
-                // invocationId will always have a value for a non-blocking invocation
-                delete _this.callbacks[invocationDescriptor.invocationId];
-            });
+                    reject(e);
+                    // invocationId will always have a value for a non-blocking invocation
+                    delete _this.callbacks[invocationDescriptor.invocationId];
+                });
         });
         return p;
     };
@@ -394,29 +394,31 @@ var HubConnection = /** @class */ (function () {
     HubConnection.prototype.resetKeepAliveInterval = function () {
         var _this = this;
         this.cleanupPingTimer();
-        this.pingServerHandle = setTimeout(function () { return __awaiter(_this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!(this.connectionState === HubConnectionState.Connected)) return [3 /*break*/, 4];
-                        _b.label = 1;
-                    case 1:
-                        _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.sendMessage(this.cachedPingMessage)];
-                    case 2:
-                        _b.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
-                        _a = _b.sent();
-                        // We don't care about the error. It should be seen elsewhere in the client.
-                        // The connection is probably in a bad or closed state now, cleanup the timer so it stops triggering
-                        this.cleanupPingTimer();
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
-                }
+        this.pingServerHandle = setTimeout(function () {
+            return __awaiter(_this, void 0, void 0, function () {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (!(this.connectionState === HubConnectionState.Connected)) return [3 /*break*/, 4];
+                            _b.label = 1;
+                        case 1:
+                            _b.trys.push([1, 3, , 4]);
+                            return [4 /*yield*/, this.sendMessage(this.cachedPingMessage)];
+                        case 2:
+                            _b.sent();
+                            return [3 /*break*/, 4];
+                        case 3:
+                            _a = _b.sent();
+                            // We don't care about the error. It should be seen elsewhere in the client.
+                            // The connection is probably in a bad or closed state now, cleanup the timer so it stops triggering
+                            this.cleanupPingTimer();
+                            return [3 /*break*/, 4];
+                        case 4: return [2 /*return*/];
+                    }
+                });
             });
-        }); }, this.keepAliveIntervalInMilliseconds);
+        }, this.keepAliveIntervalInMilliseconds);
     };
     HubConnection.prototype.resetTimeoutPeriod = function () {
         var _this = this;
@@ -461,9 +463,9 @@ var HubConnection = /** @class */ (function () {
         }
         Object.keys(callbacks)
             .forEach(function (key) {
-            var callback = callbacks[key];
-            callback(null, error ? error : new Error("Invocation canceled due to connection being closed."));
-        });
+                var callback = callbacks[key];
+                callback(null, error ? error : new Error("Invocation canceled due to connection being closed."));
+            });
         this.cleanupTimeout();
         this.cleanupPingTimer();
         this.closedCallbacks.forEach(function (c) { return c.apply(_this, [error]); });

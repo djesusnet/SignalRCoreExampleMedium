@@ -44,8 +44,8 @@ var XhrHttpClient = /** @class */ (function (_super) {
             if (headers) {
                 Object.keys(headers)
                     .forEach(function (header) {
-                    xhr.setRequestHeader(header, headers[header]);
-                });
+                        xhr.setRequestHeader(header, headers[header]);
+                    });
             }
             if (request.responseType) {
                 xhr.responseType = request.responseType;

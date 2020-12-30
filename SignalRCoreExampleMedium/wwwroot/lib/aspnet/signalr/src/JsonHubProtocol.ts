@@ -11,7 +11,6 @@ const JSON_HUB_PROTOCOL_NAME: string = "json";
 
 /** Implements the JSON Hub Protocol. */
 export class JsonHubProtocol implements IHubProtocol {
-
     /** @inheritDoc */
     public readonly name: string = JSON_HUB_PROTOCOL_NAME;
     /** @inheritDoc */

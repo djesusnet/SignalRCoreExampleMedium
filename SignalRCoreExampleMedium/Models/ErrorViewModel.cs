@@ -1,5 +1,3 @@
-using System;
-
 namespace SignalRCoreExampleMedium.Models
 {
     public class ErrorViewModel

@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -71,46 +71,46 @@ var WebSocketTransport = /** @class */ (function () {
                         }
                         _a.label = 2;
                     case 2: return [2 /*return*/, new Promise(function (resolve, reject) {
-                            url = url.replace(/^http/, "ws");
-                            var webSocket;
-                            var cookies = _this.httpClient.getCookieString(url);
-                            if (typeof window === "undefined" && cookies) {
-                                // Only pass cookies when in non-browser environments
-                                webSocket = new _this.webSocketConstructor(url, undefined, {
-                                    headers: {
-                                        Cookie: "" + cookies,
-                                    },
-                                });
+                        url = url.replace(/^http/, "ws");
+                        var webSocket;
+                        var cookies = _this.httpClient.getCookieString(url);
+                        if (typeof window === "undefined" && cookies) {
+                            // Only pass cookies when in non-browser environments
+                            webSocket = new _this.webSocketConstructor(url, undefined, {
+                                headers: {
+                                    Cookie: "" + cookies,
+                                },
+                            });
+                        }
+                        if (!webSocket) {
+                            // Chrome is not happy with passing 'undefined' as protocol
+                            webSocket = new _this.webSocketConstructor(url);
+                        }
+                        if (transferFormat === ITransport_1.TransferFormat.Binary) {
+                            webSocket.binaryType = "arraybuffer";
+                        }
+                        // tslint:disable-next-line:variable-name
+                        webSocket.onopen = function (_event) {
+                            _this.logger.log(ILogger_1.LogLevel.Information, "WebSocket connected to " + url + ".");
+                            _this.webSocket = webSocket;
+                            resolve();
+                        };
+                        webSocket.onerror = function (event) {
+                            var error = null;
+                            // ErrorEvent is a browser only type we need to check if the type exists before using it
+                            if (typeof ErrorEvent !== "undefined" && event instanceof ErrorEvent) {
+                                error = event.error;
                             }
-                            if (!webSocket) {
-                                // Chrome is not happy with passing 'undefined' as protocol
-                                webSocket = new _this.webSocketConstructor(url);
+                            reject(error);
+                        };
+                        webSocket.onmessage = function (message) {
+                            _this.logger.log(ILogger_1.LogLevel.Trace, "(WebSockets transport) data received. " + Utils_1.getDataDetail(message.data, _this.logMessageContent) + ".");
+                            if (_this.onreceive) {
+                                _this.onreceive(message.data);
                             }
-                            if (transferFormat === ITransport_1.TransferFormat.Binary) {
-                                webSocket.binaryType = "arraybuffer";
-                            }
-                            // tslint:disable-next-line:variable-name
-                            webSocket.onopen = function (_event) {
-                                _this.logger.log(ILogger_1.LogLevel.Information, "WebSocket connected to " + url + ".");
-                                _this.webSocket = webSocket;
-                                resolve();
-                            };
-                            webSocket.onerror = function (event) {
-                                var error = null;
-                                // ErrorEvent is a browser only type we need to check if the type exists before using it
-                                if (typeof ErrorEvent !== "undefined" && event instanceof ErrorEvent) {
-                                    error = event.error;
-                                }
-                                reject(error);
-                            };
-                            webSocket.onmessage = function (message) {
-                                _this.logger.log(ILogger_1.LogLevel.Trace, "(WebSockets transport) data received. " + Utils_1.getDataDetail(message.data, _this.logMessageContent) + ".");
-                                if (_this.onreceive) {
-                                    _this.onreceive(message.data);
-                                }
-                            };
-                            webSocket.onclose = function (event) { return _this.close(event); };
-                        })];
+                        };
+                        webSocket.onclose = function (event) { return _this.close(event); };
+                    })];
                 }
             });
         });

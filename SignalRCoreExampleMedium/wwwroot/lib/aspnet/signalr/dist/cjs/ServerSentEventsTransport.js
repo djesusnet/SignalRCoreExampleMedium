@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -73,54 +73,54 @@ var ServerSentEventsTransport = /** @class */ (function () {
                         }
                         _a.label = 2;
                     case 2: return [2 /*return*/, new Promise(function (resolve, reject) {
-                            var opened = false;
-                            if (transferFormat !== ITransport_1.TransferFormat.Text) {
-                                reject(new Error("The Server-Sent Events transport only supports the 'Text' transfer format"));
-                                return;
-                            }
-                            var eventSource;
-                            if (typeof window !== "undefined") {
-                                eventSource = new _this.eventSourceConstructor(url, { withCredentials: true });
-                            }
-                            else {
-                                // Non-browser passes cookies via the dictionary
-                                var cookies = _this.httpClient.getCookieString(url);
-                                eventSource = new _this.eventSourceConstructor(url, { withCredentials: true, headers: { Cookie: cookies } });
-                            }
-                            try {
-                                eventSource.onmessage = function (e) {
-                                    if (_this.onreceive) {
-                                        try {
-                                            _this.logger.log(ILogger_1.LogLevel.Trace, "(SSE transport) data received. " + Utils_1.getDataDetail(e.data, _this.logMessageContent) + ".");
-                                            _this.onreceive(e.data);
-                                        }
-                                        catch (error) {
-                                            _this.close(error);
-                                            return;
-                                        }
+                        var opened = false;
+                        if (transferFormat !== ITransport_1.TransferFormat.Text) {
+                            reject(new Error("The Server-Sent Events transport only supports the 'Text' transfer format"));
+                            return;
+                        }
+                        var eventSource;
+                        if (typeof window !== "undefined") {
+                            eventSource = new _this.eventSourceConstructor(url, { withCredentials: true });
+                        }
+                        else {
+                            // Non-browser passes cookies via the dictionary
+                            var cookies = _this.httpClient.getCookieString(url);
+                            eventSource = new _this.eventSourceConstructor(url, { withCredentials: true, headers: { Cookie: cookies } });
+                        }
+                        try {
+                            eventSource.onmessage = function (e) {
+                                if (_this.onreceive) {
+                                    try {
+                                        _this.logger.log(ILogger_1.LogLevel.Trace, "(SSE transport) data received. " + Utils_1.getDataDetail(e.data, _this.logMessageContent) + ".");
+                                        _this.onreceive(e.data);
                                     }
-                                };
-                                eventSource.onerror = function (e) {
-                                    var error = new Error(e.data || "Error occurred");
-                                    if (opened) {
+                                    catch (error) {
                                         _this.close(error);
+                                        return;
                                     }
-                                    else {
-                                        reject(error);
-                                    }
-                                };
-                                eventSource.onopen = function () {
-                                    _this.logger.log(ILogger_1.LogLevel.Information, "SSE connected to " + _this.url);
-                                    _this.eventSource = eventSource;
-                                    opened = true;
-                                    resolve();
-                                };
-                            }
-                            catch (e) {
-                                reject(e);
-                                return;
-                            }
-                        })];
+                                }
+                            };
+                            eventSource.onerror = function (e) {
+                                var error = new Error(e.data || "Error occurred");
+                                if (opened) {
+                                    _this.close(error);
+                                }
+                                else {
+                                    reject(error);
+                                }
+                            };
+                            eventSource.onopen = function () {
+                                _this.logger.log(ILogger_1.LogLevel.Information, "SSE connected to " + _this.url);
+                                _this.eventSource = eventSource;
+                                opened = true;
+                                resolve();
+                            };
+                        }
+                        catch (e) {
+                            reject(e);
+                            return;
+                        }
+                    })];
                 }
             });
         });

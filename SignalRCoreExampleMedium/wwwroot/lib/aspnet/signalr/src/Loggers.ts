@@ -8,7 +8,7 @@ export class NullLogger implements ILogger {
     /** The singleton instance of the {@link @aspnet/signalr.NullLogger}. */
     public static instance: ILogger = new NullLogger();
 
-    private constructor() {}
+    private constructor() { }
 
     /** @inheritDoc */
     // tslint:disable-next-line

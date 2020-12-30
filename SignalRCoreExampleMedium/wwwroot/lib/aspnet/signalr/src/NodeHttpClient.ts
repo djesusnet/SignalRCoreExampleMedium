@@ -35,7 +35,6 @@ export class NodeHttpClient extends HttpClient {
 
     public send(httpRequest: HttpRequest): Promise<HttpResponse> {
         return new Promise<HttpResponse>((resolve, reject) => {
-
             let requestBody: Buffer | string;
             if (isArrayBuffer(httpRequest.content)) {
                 requestBody = Buffer.from(httpRequest.content);

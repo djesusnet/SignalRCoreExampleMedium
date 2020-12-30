@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
+var __assign = (this && this.__assign) || Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
         for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
@@ -57,9 +57,10 @@ var NodeHttpClient = /** @class */ (function (_super) {
                 body: requestBody,
                 // If binary is expected 'null' should be used, otherwise for text 'utf8'
                 encoding: httpRequest.responseType === "arraybuffer" ? null : "utf8",
-                headers: __assign({ 
+                headers: __assign({
                     // Tell auth middleware to 401 instead of redirecting
-                    "X-Requested-With": "XMLHttpRequest" }, httpRequest.headers),
+                    "X-Requested-With": "XMLHttpRequest"
+                }, httpRequest.headers),
                 method: httpRequest.method,
                 timeout: httpRequest.timeout,
             }, function (error, response, body) {

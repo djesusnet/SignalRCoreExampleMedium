@@ -324,7 +324,6 @@ export class HubConnection {
         } else {
             delete this.methods[methodName];
         }
-
     }
 
     /** Registers a handler that will be invoked when the connection is closed.
