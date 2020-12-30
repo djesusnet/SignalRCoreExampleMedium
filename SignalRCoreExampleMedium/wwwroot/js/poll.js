@@ -1,29 +1,18 @@
 ﻿"use strict";
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/pollHub").build();
-var chartBlock = '\u25A3'; //(U+25A3) is "▣" 
+var chartBlock = '\u25A3';
 
 connection.on("ReceiveMessage", function (user, message, myChannelId, myChannelVal) {
-    // alert("myChannelId=" + myChannelId + ",myChannelVal=" + myChannelVal);
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    // var encodedMsg = user + " says " + msg;
     var pollResultMsg = user + " votou em '" + myChannelVal + "'.";
-
-    // var liMessage = document.createElement("li");
-    // liMessage.textContent = encodedMsg;
-    // document.getElementById("messagesList").appendChild(liMessage);
 
     var ulPoll = document.getElementById("messagesList");
     var liPollResult = document.createElement("li");
     liPollResult.textContent = pollResultMsg;
 
-    // append to top
     ulPoll.insertBefore(liPollResult, ulPoll.childNodes[0]);
 
-    // append to end
-    // document.getElementById("messagesList").appendChild(liPollResult);
-
-    // append to chart block
     document.getElementById(myChannelId + 'Block').innerHTML += chartBlock;
 });
 
@@ -33,8 +22,7 @@ connection.start().catch(function (err) {
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
     var user = document.getElementById("userInput").value;
-    var message = ""; //document.getElementById("messageInput").value;
-    //var myCaptain = document.getElementById("myCaptain").value;
+    var message = "";
 
     if (!user) {
         user = "[Anônimo]";
@@ -47,7 +35,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
             return console.error(err.toString());
         });
     } else {
-        return console.log("No captain selected.");
+        return console.log("Não possui nenhum tipo de votação selecionado.");
     }
 
     event.preventDefault();
